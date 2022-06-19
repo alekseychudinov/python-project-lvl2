@@ -3,3 +3,6 @@
 
 ### Реализация поиска различий:
 [![asciicast](https://asciinema.org/a/4mFjxorafRB34HGLdrmjEE0vy.svg)](https://asciinema.org/a/4mFjxorafRB34HGLdrmjEE0vy)
+
+### Сравнение плоских файлов (YAML)
+[![asciicast](https://asciinema.org/a/502786.svg)](https://asciinema.org/a/502786)

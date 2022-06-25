@@ -56,33 +56,32 @@ def stylish(diff_dict):
                         + "\n"
                     )
         return sub_string
-
     result = make_sub_string(diff_dict, "{\n", 1) + "}"
     return result
 
 
 def map_value(key_value, depth):
-    def map_dict_value(value, sub_string, depth):
+    def map_dict_value(value, sub_string, any_depth):
         if isinstance(value, dict):
             for key in value:
                 if isinstance(value[key], dict):
-                    sub_string += "    " * depth + key + ": {\n"
+                    sub_string += "    " * any_depth + key + ": {\n"
                     sub_string = (
-                        map_dict_value(value[key], sub_string, depth + 1)
-                        + "    " * depth
-                        + "}\n"
+                            map_dict_value(value[key], sub_string, any_depth + 1)
+                            + "    " * any_depth
+                            + "}\n"
                     )
                 else:
-                    sub_string += "    " * depth + key + ": " + str(value[key]) + "\n"
+                    sub_string += "    " * any_depth + key + ": " + str(value[key]) + "\n"
             return sub_string
 
     if isinstance(key_value, dict):
         return map_dict_value(key_value, "{\n", depth + 1) + "    " * depth + "}"
-    elif key_value == True:
+    elif str(key_value) == 'True':
         return "true"
-    elif key_value == False:
+    elif str(key_value) == 'False':
         return "false"
-    elif key_value == None:
+    elif str(key_value) == 'None':
         return "null"
     else:
         return str(key_value)

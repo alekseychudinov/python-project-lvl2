@@ -33,6 +33,7 @@ def plain(diff_dict):
         return sub_string
 
     result = make_sub_string(diff_dict, "", "")
+    result = result.rstrip(result[-1])
     return result
 
 

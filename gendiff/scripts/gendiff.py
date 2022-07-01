@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-import argparse
-
 from gendiff.lib.generate_diff import generate_diff
 
 

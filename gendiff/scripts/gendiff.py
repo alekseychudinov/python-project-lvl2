@@ -5,16 +5,17 @@ from gendiff.lib.parser import parse
 
 
 def main():
-    file1, file2, format_name = parse(parse_args())
-    diff = generate_diff(file1, file2)
-    result = formatting(diff, format_name)
-    print(result)
+    args = parse_args()
+    diff = generate_diff(args.first_file, args.second_file, args.format)
+    print(diff)
 
 
-def generate_diff(file1, file2):
+def generate_diff(file_path1, file_path2, format_name='stylish'):
+    file1, file2 = parse(file_path1, file_path2)
     children_list = make_children(file1, file2)
     result_dict = {"type": "root", "children": children_list}
-    return result_dict
+    result_str = formatting(result_dict, format_name)
+    return result_str
 
 
 def make_children(data1, data2):

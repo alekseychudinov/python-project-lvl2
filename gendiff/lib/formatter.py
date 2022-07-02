@@ -3,7 +3,7 @@ from gendiff.formatters.plain import plain
 from gendiff.formatters.stylish import stylish
 
 
-def formatting(format_name, result_dict):
+def formatting(result_dict, format_name):
     result_str = ""
     if format_name == "stylish":
         result_str = stylish(result_dict)

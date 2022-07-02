@@ -1,59 +1,59 @@
 def stylish(diff_dict):
-    result = make_sub_string(diff_dict['children'], "{\n", 1) + "}"
+    result = make_sub_string(diff_dict["children"], "{\n", 1) + "}"
     return result
 
 
 def make_sub_string(sub_list, sub_string, depth):
     for item_dict in sub_list:
-        if 'children' in item_dict:
-            sub_string += "    " * depth + item_dict['key'] + ": {\n"
+        if "children" in item_dict:
+            sub_string += "    " * depth + item_dict["key"] + ": {\n"
             sub_string = (
-                make_sub_string(item_dict['children'], sub_string, depth + 1)
+                make_sub_string(item_dict["children"], sub_string, depth + 1)
                 + "    " * depth
                 + "}\n"
             )
-        elif item_dict['type'] == 'added':
+        elif item_dict["type"] == "added":
             sub_string += (
                 "    " * (depth - 1)
                 + "  + "
-                + item_dict['key']
+                + item_dict["key"]
                 + ": "
-                + map_value(item_dict['value'], depth)
+                + map_value(item_dict["value"], depth)
                 + "\n"
             )
-        elif item_dict['type'] == 'deleted':
+        elif item_dict["type"] == "deleted":
             sub_string += (
                 "    " * (depth - 1)
                 + "  - "
-                + item_dict['key']
+                + item_dict["key"]
                 + ": "
-                + map_value(item_dict['value'], depth)
+                + map_value(item_dict["value"], depth)
                 + "\n"
             )
-        elif item_dict['type'] == 'unchanged':
+        elif item_dict["type"] == "unchanged":
             sub_string += (
                 "    " * (depth - 1)
                 + "    "
-                + item_dict['key']
+                + item_dict["key"]
                 + ": "
-                + map_value(item_dict['value'], depth)
+                + map_value(item_dict["value"], depth)
                 + "\n"
             )
-        elif item_dict['type'] == 'updated':
+        elif item_dict["type"] == "updated":
             sub_string += (
                 "    " * (depth - 1)
                 + "  - "
-                + item_dict['key']
+                + item_dict["key"]
                 + ": "
-                + map_value(item_dict['value1'], depth)
+                + map_value(item_dict["value1"], depth)
                 + "\n"
             )
             sub_string += (
                 "    " * (depth - 1)
                 + "  + "
-                + item_dict['key']
+                + item_dict["key"]
                 + ": "
-                + map_value(item_dict['value2'], depth)
+                + map_value(item_dict["value2"], depth)
                 + "\n"
             )
     return sub_string

@@ -1,36 +1,38 @@
 def plain(diff_dict):
-    result = make_sub_string(diff_dict['children'], "", "")
+    result = make_sub_string(diff_dict["children"], "", "")
     result = result.rstrip(result[-1])
     return result
 
 
 def make_sub_string(sub_list, sub_string, path_name):
     for item_dict in sub_list:
-        if item_dict['type'] == 'added':
+        if item_dict["type"] == "added":
             sub_string += (
                 "Property '"
                 + path_name
-                + item_dict['key']
+                + item_dict["key"]
                 + "' was added with value: "
-                + map_value(item_dict['value'])
+                + map_value(item_dict["value"])
                 + "\n"
             )
-        elif item_dict['type'] == 'deleted':
-            sub_string += "Property '" + path_name + item_dict['key'] + "' was removed\n"
-        elif item_dict['type'] == 'updated':
+        elif item_dict["type"] == "deleted":
+            sub_string += (
+                "Property '" + path_name + item_dict["key"] + "' was removed\n"
+            )
+        elif item_dict["type"] == "updated":
             sub_string += (
                 "Property '"
                 + path_name
-                + item_dict['key']
+                + item_dict["key"]
                 + "' was updated. From "
-                + map_value(item_dict['value1'])
+                + map_value(item_dict["value1"])
                 + " to "
-                + map_value(item_dict['value2'])
+                + map_value(item_dict["value2"])
                 + "\n"
             )
-        elif 'children' in item_dict:
+        elif "children" in item_dict:
             sub_string = make_sub_string(
-                item_dict['children'], sub_string, path_name + item_dict['key'] + "."
+                item_dict["children"], sub_string, path_name + item_dict["key"] + "."
             )
     return sub_string
 

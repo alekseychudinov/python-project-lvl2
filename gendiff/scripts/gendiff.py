@@ -10,7 +10,7 @@ def main():
     print(diff)
 
 
-def generate_diff(file_path1, file_path2, format_name='stylish'):
+def generate_diff(file_path1, file_path2, format_name="stylish"):
     file1, file2 = parse(file_path1, file_path2)
     children_list = make_children(file1, file2)
     result_dict = {"type": "root", "children": children_list}

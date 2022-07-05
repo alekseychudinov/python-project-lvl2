@@ -20,7 +20,7 @@ def make_sub_string(sub_list, sub_string, depth):
             sub_string = f"{sub_string}{'    ' * depth}\"value\": {map_value(item_dict['value'], depth)}\n"
         elif item_dict["type"] == "updated":
             sub_string = (
-                f"{sub_string}{'    ' * depth}\"value1\": {map_value(item_dict['value1'], depth)}\n"
+                f"{sub_string}{'    ' * depth}\"value1\": {map_value(item_dict['value1'], depth)},\n"
                 f"{'    ' * depth}\"value2\": {map_value(item_dict['value2'], depth)}\n"
             )
         sub_string = f"{sub_string}{'    ' * (depth - 1)}}}"

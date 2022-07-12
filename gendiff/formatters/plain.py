@@ -1,24 +1,29 @@
+from gendiff.formatters.stylish import get_value
+
+
 def plain(diff_dict):
     result = make_sub_string(diff_dict["children"], "", "")
-    result = result.rstrip(result[-1])
-    return result
+    return result.rstrip(result[-1])
 
 
 def make_sub_string(sub_list, sub_string, path_name):
     for item_dict in sub_list:
-        prefix = f"Property '{path_name}{item_dict['key']}'"
-        if item_dict["type"] == "added":
-            sub_string = f"{sub_string}{prefix} was added with value: {map_value(item_dict['value'])}\n"
-        elif item_dict["type"] == "deleted":
+        name_of_property = item_dict["key"]
+        type_of_property = item_dict["type"]
+        prefix = f"Property '{path_name}{name_of_property}'"
+        if type_of_property == "added":
+            sub_string = f"{sub_string}{prefix} was added with value: {map_value(get_value(item_dict))}\n"
+        elif type_of_property == "deleted":
             sub_string = f"{sub_string}{prefix} was removed\n"
-        elif item_dict["type"] == "updated":
+        elif type_of_property == "updated":
             sub_string = (
                 f"{sub_string}{prefix} was updated. From "
-                f'{map_value(item_dict["value1"])} to {map_value(item_dict["value2"])}\n'
+                f"{map_value(get_value(item_dict))} to {map_value(get_value(item_dict))}\n"
             )
-        elif "children" in item_dict:
+        elif type_of_property == "parent":
+            list_of_children = item_dict["children"]
             sub_string = make_sub_string(
-                item_dict["children"], sub_string, path_name + item_dict["key"] + "."
+                list_of_children, sub_string, path_name + name_of_property + "."
             )
     return sub_string
 

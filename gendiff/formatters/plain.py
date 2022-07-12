@@ -1,6 +1,3 @@
-from gendiff.formatters.stylish import get_value
-
-
 def plain(diff_dict):
     result = make_sub_string(diff_dict["children"], "", "")
     return result.rstrip(result[-1])

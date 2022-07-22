@@ -2,7 +2,7 @@ from gendiff.formatters.stylish import build_indent, get_value
 
 
 def json_format(diff_dict):
-    string = f"{{\n    \"type\": \"{diff_dict['type']}\",\n    \"children\": [\n"
+    string = f"{{\n    \"type\": \"{diff_dict['type']}\",\n    \"children\": [\n" # noqa
     string = make_sub_string(diff_dict["children"], string, 2) + "]"
     return f"{string}\n}}"
 
@@ -23,11 +23,11 @@ def make_sub_string(sub_list, sub_string, depth):
                 make_sub_string(list_of_children, sub_string, depth + 1) + "]\n"
             )
         elif type_of_property in ("deleted", "added", "unchanged"):
-            sub_string = f'{sub_string}{build_indent(depth)}"value": {map_value(get_value(item_dict), depth)}\n'
+            sub_string = f'{sub_string}{build_indent(depth)}"value": {map_value(get_value(item_dict), depth)}\n' # noqa
         elif type_of_property == "updated":
             sub_string = (
-                f'{sub_string}{build_indent(depth)}"value1": {map_value(get_value(item_dict)[0], depth)},\n'
-                f'{build_indent(depth)}"value2": {map_value(get_value(item_dict)[1], depth)}\n'
+                f'{sub_string}{build_indent(depth)}"value1": {map_value(get_value(item_dict)[0], depth)},\n' # noqa
+                f'{build_indent(depth)}"value2": {map_value(get_value(item_dict)[1], depth)}\n' # noqa
             )
         sub_string = f"{sub_string}{build_indent(depth - 1)}}}"
         if index < len(sub_list) - 1:
@@ -38,7 +38,7 @@ def make_sub_string(sub_list, sub_string, depth):
 def map_value(key_value, depth):
     if isinstance(key_value, dict):
         indent = f"\n{build_indent(depth)}{{\n"
-        return f'{map_dict_value(key_value, indent, depth + 1)}{"    " * depth}}}'
+        return f'{map_dict_value(key_value, indent, depth + 1)}{"    " * depth}}}' # noqa
     elif str(key_value) == "True":
         return "true"
     elif str(key_value) == "False":
@@ -56,7 +56,7 @@ def map_dict_value(value_dict, sub_string, any_depth):
         sub_string = f'{sub_string}{build_indent(any_depth)}"{key}":'
         if isinstance(value_dict[key], dict):
             sub_string = f"{sub_string}\n" f"{build_indent(any_depth)}{{\n"
-            sub_string = f"{map_dict_value(value_dict[key], sub_string, any_depth + 1)}{build_indent(any_depth)}}}"
+            sub_string = f"{map_dict_value(value_dict[key], sub_string, any_depth + 1)}{build_indent(any_depth)}}}" # noqa
         else:
             sub_string = f"{sub_string} {map_value(value_dict[key], any_depth)}"
         if i < len(value_dict) - 1:

@@ -20,7 +20,7 @@ def make_children(data1, data2):
                     }
                 )
             elif data1[key] == data2[key]:
-                result.append({"key": key, "type": "unchanged", "value": data1[key]})
+                result.append({"key": key, "type": "unchanged", "value": data1[key]}) # noqa
             else:
                 result.append(
                     {

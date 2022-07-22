@@ -3,10 +3,10 @@ def stylish(diff_dict):
 
 
 def build_diff(tree, depth):
-    result = ''
-    if tree['type'] == 'root':
+    result = ""
+    if tree["type"] == "root":
         result = f"{{\n"
-        for item_list in tree['children']:
+        for item_list in tree["children"]:
             result = f"{result}{build_diff(item_list, depth)}"
         result = f"{result}}}"
     else:
@@ -14,23 +14,23 @@ def build_diff(tree, depth):
         type_of_property = tree["type"]
         if type_of_property == "parent":
             result = f"{result}{build_indent(depth)}{name_of_property}: {{\n"
-            for item_list in tree['children']:
+            for item_list in tree["children"]:
                 result = f"{result}{build_diff(item_list, depth + 1)}"
             result = f"{result}{build_indent(depth)}}}\n"
         elif type_of_property == "added":
-            result = f"{result}{build_indent(depth - 1)}  + {name_of_property}: {map_value(get_value(tree), depth)}\n"
+            result = f"{result}{build_indent(depth - 1)}  + {name_of_property}: {map_value(get_value(tree), depth)}\n" # noqa
         elif type_of_property == "deleted":
-            result = f"{result}{build_indent(depth - 1)}  - {name_of_property}: {map_value(get_value(tree), depth)}\n"
+            result = f"{result}{build_indent(depth - 1)}  - {name_of_property}: {map_value(get_value(tree), depth)}\n" # noqa
         elif type_of_property == "unchanged":
-            result = f"{result}{build_indent(depth - 1)}    {name_of_property}: {map_value(get_value(tree), depth)}\n"
+            result = f"{result}{build_indent(depth - 1)}    {name_of_property}: {map_value(get_value(tree), depth)}\n" # noqa
         elif type_of_property == "updated":
-            result = f"{result}{build_indent(depth - 1)}  - {name_of_property}: {map_value(get_value(tree)[0], depth)}\n{build_indent(depth - 1)}  + {name_of_property}: {map_value(get_value(tree)[1], depth)}\n"
+            result = f"{result}{build_indent(depth - 1)}  - {name_of_property}: {map_value(get_value(tree)[0], depth)}\n{build_indent(depth - 1)}  + {name_of_property}: {map_value(get_value(tree)[1], depth)}\n" # noqa
     return result
 
 
 def map_value(key_value, depth):
     if isinstance(key_value, dict):
-        return map_dict_value(key_value, "{\n", depth + 1) + build_indent(depth) + "}"
+        return map_dict_value(key_value, "{\n", depth + 1) + build_indent(depth) + "}" # noqa
     elif str(key_value) == "True":
         return "true"
     elif str(key_value) == "False":
@@ -45,10 +45,10 @@ def map_dict_value(value, sub_string, any_depth):
     for key in value:
         if isinstance(value[key], dict):
             sub_string = f"{sub_string}{build_indent(any_depth)}{key}: {{\n"
-            sub_string = f"{map_dict_value(value[key], sub_string, any_depth + 1)}{build_indent(any_depth)}}}\n"
+            sub_string = f"{map_dict_value(value[key], sub_string, any_depth + 1)}{build_indent(any_depth)}}}\n" # noqa
         else:
             sub_string = (
-                f"{sub_string}{build_indent(any_depth)}{key}: {str(value[key])}\n"
+                f"{sub_string}{build_indent(any_depth)}{key}: {str(value[key])}\n" # noqa
             )
     return sub_string
 

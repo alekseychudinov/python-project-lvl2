@@ -5,7 +5,7 @@ def stylish(diff_dict):
 def build_diff(tree, depth):
     result = ""
     if tree["type"] == "root":
-        result = f"{{\n"
+        result = "{\n"
         for item_list in tree["children"]:
             result = f"{result}{build_diff(item_list, depth)}"
         result = f"{result}}}"

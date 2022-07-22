@@ -26,8 +26,8 @@ def make_sub_string(sub_list, sub_string, depth):
             sub_string = f'{sub_string}{build_indent(depth)}"value": {map_value(get_value(item_dict), depth)}\n'
         elif type_of_property == "updated":
             sub_string = (
-                f'{sub_string}{build_indent(depth)}"value1": {map_value(get_value(item_dict), depth)},\n'
-                f'{build_indent(depth)}"value2": {map_value(get_value(item_dict), depth)}\n'
+                f'{sub_string}{build_indent(depth)}"value1": {map_value(get_value(item_dict)[0], depth)},\n'
+                f'{build_indent(depth)}"value2": {map_value(get_value(item_dict)[1], depth)}\n'
             )
         sub_string = f"{sub_string}{build_indent(depth - 1)}}}"
         if index < len(sub_list) - 1:

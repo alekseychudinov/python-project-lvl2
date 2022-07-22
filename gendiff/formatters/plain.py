@@ -9,13 +9,13 @@ def make_sub_string(sub_list, sub_string, path_name):
         type_of_property = item_dict["type"]
         prefix = f"Property '{path_name}{name_of_property}'"
         if type_of_property == "added":
-            value_of_property = item_dict['value']
+            value_of_property = item_dict["value"]
             sub_string = f"{sub_string}{prefix} was added with value: {map_value(value_of_property)}\n"
         elif type_of_property == "deleted":
             sub_string = f"{sub_string}{prefix} was removed\n"
         elif type_of_property == "updated":
-            value_of_property1 = item_dict['value1']
-            value_of_property2 = item_dict['value2']
+            value_of_property1 = item_dict["value1"]
+            value_of_property2 = item_dict["value2"]
             sub_string = (
                 f"{sub_string}{prefix} was updated. From "
                 f"{map_value(value_of_property1)} to {map_value(value_of_property2)}\n"

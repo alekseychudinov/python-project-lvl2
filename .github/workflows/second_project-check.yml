@@ -21,5 +21,11 @@ jobs:
           make install
       - name: linter
         run: make lint
+        continue-on-error: true
       - name: test
-        run: make pytest
+        run: |
+          pip install pytest
+          pip install pytest-cov
+          pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+          make pytest
+        continue-on-error: true

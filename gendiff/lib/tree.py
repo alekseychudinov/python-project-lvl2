@@ -2,7 +2,7 @@ def make_tree(data1, data2):
     return {"type": "root", "children": make_children(data1, data2)}
 
 
-def make_children(data1, data2): # noqa: C901
+def make_children(data1, data2):  # noqa: C901
     result = []
     keys = data1.keys() | data2.keys()
     for key in sorted(keys):

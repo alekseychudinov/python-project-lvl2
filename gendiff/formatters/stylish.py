@@ -2,7 +2,7 @@ def stylish(diff_dict):
     return build_diff(diff_dict, 1)
 
 
-def build_diff(tree, depth): # noqa: C901
+def build_diff(tree, depth):  # noqa: C901
     if tree["type"] == "root":
         result = "{\n"
         for item_list in tree["children"]:

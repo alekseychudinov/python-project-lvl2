@@ -52,7 +52,7 @@ def map_dict_value(value, sub_string, any_depth):
 
 
 def build_indent(x):
-    return "	" * x
+    return "    " * x
 
 
 def get_value(my_dict):

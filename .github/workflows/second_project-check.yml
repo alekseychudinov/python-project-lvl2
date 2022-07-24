@@ -23,6 +23,9 @@ jobs:
         run: make lint
         continue-on-error: true
       - name: Test & publish code coverage
+        run: |
+        pip install pytest
+        pip install pytest-cov
         uses: paambaati/codeclimate-action@v2.7.4
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}

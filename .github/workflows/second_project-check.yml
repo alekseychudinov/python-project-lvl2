@@ -24,5 +24,7 @@ jobs:
         continue-on-error: true
       - name: test
         run: |
+          pip install pytest
+          pip install pytest-cov
           make test-coverage
         continue-on-error: true

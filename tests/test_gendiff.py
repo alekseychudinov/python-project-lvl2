@@ -26,5 +26,5 @@ def test_generate_diff():
 
 def test_generate_diff8():
     result_true_json8 = open("tests/fixtures/result_true_json8.json").read()
-    diff_json = generate_diff("tests/fixtures/file611.json", "tests/fixtures/file621.json", 'json')
-    assert diff_json == result_true_json8
+    diff_json8 = generate_diff("tests/fixtures/file81.json", "tests/fixtures/file82.json", 'json')
+    assert diff_json8 == result_true_json8

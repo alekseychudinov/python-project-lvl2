@@ -22,11 +22,6 @@ jobs:
       - name: linter
         run: make lint
         continue-on-error: true
-      - name: Install pytest and pyyaml
-        run: |
-          pip install pytest
-          pip install pytest-cov
-          pip install pyyaml
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.4
         env:

@@ -10,7 +10,7 @@ def test_generate_diff():
     diff_json6 = generate_diff("tests/fixtures/file61.json", "tests/fixtures/file62.json", 'json')
     diff_yaml6 = generate_diff("tests/fixtures/file61.yaml", "tests/fixtures/file62.yaml", 'json')
     diff_yml6 = generate_diff("tests/fixtures/file61.yml", "tests/fixtures/file62.yml", 'json')
-    result_true_json6 = open("tests/fixtures/result_true_json6.txt").read()
+    result_true_json6 = open("tests/fixtures/result_true_json6.json").read()
 
     result_true_plain = open("tests/fixtures/result_true_plain.txt").read()
     diff_plain = generate_diff("tests/fixtures/file61.yml", "tests/fixtures/file62.yml", 'plain')

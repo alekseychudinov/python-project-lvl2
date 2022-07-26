@@ -21,7 +21,6 @@ jobs:
           make install
       - name: linter
         run: make lint
-        continue-on-error: true
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.4
         env:

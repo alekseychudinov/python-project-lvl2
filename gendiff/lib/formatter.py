@@ -10,3 +10,5 @@ def formatting(result_dict, format_name):
         return plain(result_dict)
     elif format_name == "json":
         return json_format(result_dict)
+    else:
+        return "Неизвестный формат для вывода результата сравнения"

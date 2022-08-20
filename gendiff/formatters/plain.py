@@ -5,37 +5,38 @@ def plain(diff_dict):
 
 def make_sub_string(sub_list, sub_string, path_name):
     for item_dict in sub_list:
-        name_of_property = item_dict["key"]
-        type_of_property = item_dict["type"]
-        prefix = f"Property '{path_name}{name_of_property}'"
-        if type_of_property == "added":
-            value_of_property = item_dict["value"]
-            sub_string = f"{sub_string}{prefix} was added with value: {map_value(value_of_property)}\n" # noqa
-        elif type_of_property == "deleted":
+        key = item_dict.get('key')
+        type = item_dict.get('type')
+        prefix = f"Property '{path_name}{key}'"
+        if type == "added":
+            value = value_to_str(item_dict.get('value'))
+            sub_string = f"{sub_string}{prefix} was added with value: {value}\n"
+        elif type == "deleted":
             sub_string = f"{sub_string}{prefix} was removed\n"
-        elif type_of_property == "updated":
-            value_of_property1 = item_dict["value1"]
-            value_of_property2 = item_dict["value2"]
+        elif type == "updated":
+            value1 = value_to_str(item_dict.get('value1'))
+            value2 = value_to_str(item_dict.get('value2'))
             sub_string = (
                 f"{sub_string}{prefix} was updated. From "
-                f"{map_value(value_of_property1)} to {map_value(value_of_property2)}\n" # noqa
+                f"{value1} to {value2}\n" # noqa
             )
-        elif type_of_property == "parent":
+        elif type == "parent":
             list_of_children = item_dict["children"]
             sub_string = make_sub_string(
-                list_of_children, sub_string, path_name + name_of_property + "."
+                list_of_children, sub_string, path_name + key + "."
             )
+        elif type != "unchanged":
+            print(type, '\n')
+            return 'Неизвестный тип свойства'
     return sub_string
 
 
-def map_value(key_value):
+def value_to_str(key_value):
     if isinstance(key_value, dict):
         return "[complex value]"
-    elif str(key_value) == "True":
-        return "true"
-    elif str(key_value) == "False":
-        return "false"
-    elif str(key_value) == "None":
+    elif isinstance(key_value, bool):
+        return 'true' if key_value else 'false'
+    elif key_value is None:
         return "null"
     elif isinstance(key_value, int):
         return str(key_value)

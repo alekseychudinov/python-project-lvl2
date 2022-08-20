@@ -1,4 +1,4 @@
-from gendiff.formatters.stylish import build_indent, get_value
+from gendiff.formatters.stylish import build_indent
 
 
 def json_format(diff_dict):
@@ -9,41 +9,45 @@ def json_format(diff_dict):
 
 def make_sub_string(sub_list, sub_string, depth):
     for index, item_dict in enumerate(sub_list):
-        name_of_property = item_dict["key"]
-        type_of_property = item_dict["type"]
+        indent = build_indent(depth)
+        value = value_to_str(item_dict.get('value'), depth)
+        value1 = value_to_str(item_dict.get('value1'), depth)
+        value2 = value_to_str(item_dict.get('value2'), depth)
+        key = item_dict.get('key')
+        type = item_dict.get('type')
         sub_string = (
             f"{sub_string}{build_indent(depth - 1)}{{\n"
-            f'{build_indent(depth)}"key": "{name_of_property}",\n'
-            f'{build_indent(depth)}"type": "{type_of_property}",\n'
+            f'{indent}"key": "{key}",\n'
+            f'{indent}"type": "{type}",\n'
         )
-        if type_of_property == "parent":
+        if type == "parent":
             list_of_children = item_dict["children"]
-            sub_string = f'{sub_string}{build_indent(depth)}"children": [\n'
+            sub_string = f'{sub_string}{indent}"children": [\n'
             sub_string = (
                 make_sub_string(list_of_children, sub_string, depth + 1) + "]\n"
             )
-        elif type_of_property in ("deleted", "added", "unchanged"):
-            sub_string = f'{sub_string}{build_indent(depth)}"value":{map_value(get_value(item_dict), depth)}\n' # noqa
-        elif type_of_property == "updated":
+        elif type in ("deleted", "added", "unchanged"):
+            sub_string = f'{sub_string}{indent}"value":{value}\n'
+        elif type == "updated":
             sub_string = (
-                f'{sub_string}{build_indent(depth)}"value1":{map_value(get_value(item_dict)[0], depth)},\n' # noqa
-                f'{build_indent(depth)}"value2":{map_value(get_value(item_dict)[1], depth)}\n' # noqa
+                f'{sub_string}{indent}"value1":{value1},\n'
+                f'{indent}"value2":{value2}\n'
             )
+        else:
+            return 'Неизвестный тип свойства'
         sub_string = f"{sub_string}{build_indent(depth - 1)}}}"
         if index < len(sub_list) - 1:
             sub_string += ",\n"
     return sub_string
 
 
-def map_value(key_value, depth):
+def value_to_str(key_value, depth):
     if isinstance(key_value, dict):
         indent = f"\n{build_indent(depth)}{{\n"
         return f'{map_dict_value(key_value, indent, depth + 1)}{"    " * depth}}}' # noqa
-    elif str(key_value) == "True":
-        return " true"
-    elif str(key_value) == "False":
-        return " false"
-    elif str(key_value) == "None":
+    elif isinstance(key_value, bool):
+        return ' true' if key_value else ' false'
+    elif key_value is None:
         return " null"
     elif isinstance(key_value, int):
         return f' {str(key_value)}'
@@ -58,7 +62,7 @@ def map_dict_value(value_dict, sub_string, any_depth):
             sub_string = f"{sub_string}\n" f"{build_indent(any_depth)}{{\n"
             sub_string = f"{map_dict_value(value_dict[key], sub_string, any_depth + 1)}{build_indent(any_depth)}}}" # noqa
         else:
-            sub_string = f"{sub_string}{map_value(value_dict[key], any_depth)}"
+            sub_string = f"{sub_string}{value_to_str(value_dict[key], any_depth)}"
         if i < len(value_dict) - 1:
             sub_string += ","
         sub_string += "\n"

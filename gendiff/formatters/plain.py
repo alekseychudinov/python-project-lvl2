@@ -3,7 +3,7 @@ def plain(diff_dict):
     return result.rstrip(result[-1])
 
 
-def make_sub_string(sub_list, sub_string, path_name):
+def make_sub_string(sub_list, sub_string, path_name):  # noqa: C901
     for item_dict in sub_list:
         key = item_dict.get('key')
         type = item_dict.get('type')

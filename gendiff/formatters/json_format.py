@@ -62,7 +62,7 @@ def map_dict_value(value_dict, sub_string, any_depth):
             sub_string = f"{sub_string}\n" f"{build_indent(any_depth)}{{\n"
             sub_string = f"{map_dict_value(value_dict[key], sub_string, any_depth + 1)}{build_indent(any_depth)}}}" # noqa
         else:
-            sub_string = f"{sub_string}{value_to_str(value_dict[key], any_depth)}"
+            sub_string = f"{sub_string}{value_to_str(value_dict[key], any_depth)}" # noqa
         if i < len(value_dict) - 1:
             sub_string += ","
         sub_string += "\n"

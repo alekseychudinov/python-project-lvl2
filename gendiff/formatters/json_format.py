@@ -1,10 +1,14 @@
+import json
+
+
 from gendiff.formatters.stylish import build_indent
 
 
 def json_format(diff_dict):
-    string = f"{{\n    \"type\": \"{diff_dict['type']}\",\n    \"children\": [\n" # noqa
-    string = make_sub_string(diff_dict["children"], string, 2) + "]"
-    return f"{string}\n}}"
+    #string = f"{{\n    \"type\": \"{diff_dict['type']}\",\n    \"children\": [\n" # noqa
+    #string = make_sub_string(diff_dict["children"], string, 2) + "]"
+    return json.dumps(diff_dict)
+    #return f"{string}\n}}"
 
 
 def make_sub_string(sub_list, sub_string, depth):
